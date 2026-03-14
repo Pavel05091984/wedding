@@ -1,0 +1,111 @@
+<html>
+  <head>
+    <script src="js/aframe.1.6.0.min.js"></script>
+    <script src="js/mindar-image-aframe.prod.js"></script>
+    <style>
+      #example-scanning-overlay {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        background: transparent;
+        z-index: 2;
+      }
+      @media (min-aspect-ratio: 1/1) {
+        #example-scanning-overlay .inner {
+          width: 50vh;
+          height: 50vh;
+        }
+      }
+      @media (max-aspect-ratio: 1/1) {
+        #example-scanning-overlay .inner {
+          width: 80vw;
+          height: 80vw;
+        }
+      }
+
+      #example-scanning-overlay .inner {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+
+        background:
+          linear-gradient(to right, white 10px, transparent 10px) 0 0,
+          linear-gradient(to right, white 10px, transparent 10px) 0 100%,
+          linear-gradient(to left, white 10px, transparent 10px) 100% 0,
+          linear-gradient(to left, white 10px, transparent 10px) 100% 100%,
+          linear-gradient(to bottom, white 10px, transparent 10px) 0 0,
+          linear-gradient(to bottom, white 10px, transparent 10px) 100% 0,
+          linear-gradient(to top, white 10px, transparent 10px) 0 100%,
+          linear-gradient(to top, white 10px, transparent 10px) 100% 100%;
+        background-repeat: no-repeat;
+        background-size: 40px 40px;
+      }
+
+      #example-scanning-overlay.hidden {
+        display: none;
+      }
+
+      #example-scanning-overlay img {
+        opacity: 0.6;
+        width: 80%;
+        align-self: center;
+      }
+
+      #example-scanning-overlay .inner .scanline {
+        position: absolute;
+        width: 100%;
+        height: 10px;
+        background: white;
+        animation: move 2s linear infinite;
+      }
+      @keyframes move {
+        0%,
+        100% {
+          top: 0%;
+        }
+        50% {
+          top: calc(100% - 10px);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div id="example-scanning-overlay" class="hidden">
+      <div class="inner">
+        <img src="img/свадьба/Денис и Мария.jpg" />
+        <div class="scanline"></div>
+      </div>
+    </div>
+    <a-scene
+    
+      mindar-image="uiScanning: #example-scanning-overlay; imageTargetSrc: маркеры/Денис и Мария_Scale_7.mind;"
+      vr-mode-ui="enabled: false"
+      device-orientation-permission-ui="enabled: false"
+      color-space="sRGB"
+      renderer="colorManagement: true, physicallyCorrectLights"
+    ><a-assets>
+        
+        <video id="video" loop="true" src="video/anima.mp4" autoplay></video>
+      </a-assets>
+      <a-camera position="0 0 0" look-controls="enabled: false"></a-camera>
+      <a-entity mindar-image-target="targetIndex: 0">
+        <a-entity rotation="0 0 0" position="0 0 -1.5">
+          <a-entity>
+            <a-video
+          width="1"
+          height="1"
+          position="0 0 0"
+          src="#video">
+            </a-video>
+        </a-entity>
+          
+      </a-entity>
+    </a-scene>
+  </body>
+</html>
